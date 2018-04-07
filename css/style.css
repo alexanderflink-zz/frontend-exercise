@@ -20,6 +20,7 @@ p {
 
 input {
 	margin: 10px;
+	padding: 5px;
 }
 
 #overlay {
@@ -90,6 +91,10 @@ input {
 	justify-content: center;
 	user-select: none;
 	margin: 20px;
+}
+
+.btn-counter:disabled {
+	opacity: 0.1;
 }
 
 .btn-counter .material-icons {

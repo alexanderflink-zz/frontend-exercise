@@ -1,7 +1,7 @@
 // entry point
 function main() {
 
-	// declare variables
+	// list of repos
 	let repos = [
 		'eslint/eslint',
 		'oakwood/front-end-questions',
@@ -22,15 +22,13 @@ function main() {
 	const overlay = document.querySelector('#overlay');
 	const loginPopup = document.querySelector('#authorize-popup');
 
-	// create an instance of Counter
-	let counter = new Counter(0, repos.length - 1, '#counter');
+	// create an instance of Counter(min, max, counter element, decrement button, increment button)
+	let counter = new Counter(0, repos.length - 1, '#counter', '#btn-decrement', '#btn-increment');
 
-	// create an instance of RepoInformation
+	// create an instance of RepoInformation(repos, name element, description element, stars element)
 	let repoInformation = new RepoInformation(repos, '#repo-name', '#repo-description', '#repo-stars');
 
 	// add event listeners
-	btnDecrement.addEventListener('click', counter.decrement.bind(counter));
-	btnIncrement.addEventListener('click', counter.increment.bind(counter));
 	btnOpenLogin.addEventListener('click', showLoginPopup);
 	btnCloseLogin.addEventListener('click', closeLoginPopup);
 	btnLogin.addEventListener('click', authorize);
@@ -38,8 +36,8 @@ function main() {
 	// update repo information whenever counter changes
 	counter.onUpdate = repoInformation.update.bind(repoInformation);
 
-	// show login button if repo info failed to fetch because of too many unauthorized requests
-	repoInformation.onReachedRequestLimit = showLoginButton;
+	// show login button if repo info failed to fetch because of authorization issues
+	repoInformation.onUnauthorized = showLoginButton;
 
 	// this shows the login button when user needs to log in to continue
 	function showLoginButton() {
