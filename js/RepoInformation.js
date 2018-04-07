@@ -58,12 +58,21 @@ class RepoInformation {
 			// successfully retrieved info
 			this.updateView(JSON.parse(req.responseText));
 		} else if (req.status == 403) {
+			// 403 Forbidden
 			this.updateView({
 				full_name: 'Too many requests!',
 				description: 'Sorry, you made too many unauthorized requests in the last hour. <br>Please try again later, or...'
 			});
-			this.onReachedRequestLimit();
+			this.onUnauthorized();
+		}  else if (req.status == 401) {
+			// 401 Unauthorized
+			this.updateView({
+				full_name: 'Oops!',
+				description: 'Looks like your login credentials are wrong.'
+			});
+			this.onUnauthorized();
 		} else {
+			// Repo doesn't exist
 			this.updateView({
 				full_name: 'Oops!',
 				description: `Sorry, repository ${req.responseURL.replace('https://api.github.com/repos/', '')} doesn´t exist. ¯\\_(ツ)_/¯`
@@ -73,6 +82,10 @@ class RepoInformation {
 
 	onError(e) {
 		let req = e.target;
+		this.updateView({
+			full_name: 'Oops!',
+			description: 'Something went wrong when fetching data from github!'
+		});
 	}
 
 	authorize(username, password) {
@@ -81,5 +94,5 @@ class RepoInformation {
 		this.update(this.currentIndex);
 	}
 
-	onReachedRequestLimit() {} // placeholder method
+	onUnauthorized() {} // placeholder method
 }

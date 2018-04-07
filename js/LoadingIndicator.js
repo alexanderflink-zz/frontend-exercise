@@ -25,7 +25,7 @@ class LoadingIndicator {
 
 	update() {
 		this.rotation += 10;
-		this.element.style.transform = `translate(-50%, -50%) rotate(${this.rotation}deg)`;
+		this.element.style.transform = `rotate(${this.rotation}deg)`;
 		requestAnimationFrame(this.update);
 	}
 }
