@@ -78,6 +78,12 @@ button {
 
 #repo-stars {
 	display: flex;
+	align-items: center;
+}
+
+#repo-stars .material-icons {
+	font-size: 11px;
+	margin-right: 5px;
 }
 
 .btn-counter {
