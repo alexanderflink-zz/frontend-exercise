@@ -34,10 +34,10 @@
 			</section>
 			<div id="authorize-popup">
 				<button id="btn-authorize-form-close" class="material-icons">close</button>
-				<form id="authorize-form">
+				<form id="authorize-form" onsubmit="return false">
 					<input type="text" placeholder="username">
 					<input type="password" placeholder="password">
-					<input id="btn-login" class="btn-counter white" type="submit" onsubmit="return false" value="log in">
+					<input id="btn-login" class="btn-counter white" type="submit" value="log in">
 				</form>
 			</div>
 		</main>
