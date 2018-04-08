@@ -12,8 +12,8 @@ class RepoInformation {
 		// index of current repo
 		this.currentIndex = 0;
 
-		// create an instance of LoadingIndicator
-		this.loadingIndicator = new LoadingIndicator(document.body);
+		// create an instance of LoadingIndicator and parent it to parent node
+		this.loadingIndicator = new LoadingIndicator(this.nameElement.parentNode);
 
 		// update once immediately
 		this.update(this.currentIndex);
@@ -54,29 +54,34 @@ class RepoInformation {
 
 	onRetrievedInformation(e) {
 		let req = e.target;
-		if (req.status == 200) {
-			// successfully retrieved info
-			this.updateView(JSON.parse(req.responseText));
-		} else if (req.status == 403) {
-			// 403 Forbidden
-			this.updateView({
-				full_name: 'Too many requests!',
-				description: 'Sorry, you made too many unauthorized requests in the last hour. <br>Please try again later, or...'
-			});
-			this.onUnauthorized();
-		}  else if (req.status == 401) {
-			// 401 Unauthorized
-			this.updateView({
-				full_name: 'Oops!',
-				description: 'Looks like your login credentials are wrong.'
-			});
-			this.onUnauthorized();
-		} else {
-			// Repo doesn't exist
-			this.updateView({
-				full_name: 'Oops!',
-				description: `Sorry, repository ${req.responseURL.replace('https://api.github.com/repos/', '')} doesn´t exist. ¯\\_(ツ)_/¯`
-			});
+		switch (req.status) {
+			case 200:
+				// successfully retrieved info
+				this.updateView(JSON.parse(req.responseText));
+			break;
+			case 403:
+				// 403 Forbidden
+				this.updateView({
+					full_name: 'Too many requests!',
+					description: 'Sorry, you made too many unauthorized requests in the last hour. <br>Please try again later, or...'
+				});
+				this.onUnauthorized();
+			break;
+			case 401:
+				// 401 Unauthorized
+				this.updateView({
+					full_name: 'Oops!',
+					description: 'Looks like your login credentials are wrong.'
+				});
+				this.onUnauthorized();
+			break;
+			default:
+				// Repo doesn't exist
+				this.updateView({
+					full_name: 'Oops!',
+					description: `Sorry, repository ${req.responseURL.replace('https://api.github.com/repos/', '')} doesn´t exist. ¯\\_(ツ)_/¯`
+				});
+			break;
 		}
 	}
 
