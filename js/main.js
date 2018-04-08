@@ -33,6 +33,9 @@ function main() {
 	btnCloseLogin.addEventListener('click', closeLoginPopup);
 	btnLogin.addEventListener('click', authorize);
 
+	// hide some elements initially
+	hide(btnOpenLogin);
+
 	// update repo information whenever counter changes
 	counter.onUpdate = repoInformation.update.bind(repoInformation);
 
@@ -41,23 +44,21 @@ function main() {
 
 	// this shows the login button when user needs to log in to continue
 	function showLoginButton() {
-		btnOpenLogin.style.display = 'block';
+		show(btnOpenLogin);
 	}
 
 	function hideLoginButton() {
-		btnOpenLogin.style.display = 'none';
+		hide(btnOpenLogin);
 	}
 
 	// show login popup
 	function showLoginPopup() {
-		loginPopup.style.display = 'block';
-		overlay.style.display = 'block';
+		show([loginPopup, overlay]);
 	}
 
 	// close login popup
 	function closeLoginPopup() {
-		loginPopup.style.display = 'none';
-		overlay.style.display = 'none';
+		hide([loginPopup, overlay]);
 	}
 
 	// simple authorization against github
@@ -67,5 +68,21 @@ function main() {
 		repoInformation.authorize.call(repoInformation, username, password);
 		closeLoginPopup();
 		hideLoginButton();
+	}
+
+	function hide(elements) {
+		// convert to array if it's not
+		let elementsArray = elements.constructor === Array ? elements : [elements];
+		elementsArray.forEach(element => {
+			element.style.display = "none";
+		});
+	}
+
+	function show(elements) {
+		// convert to array if it's not
+		let elementsArray = elements.constructor === Array ? elements : [elements];
+		elementsArray.forEach(element => {
+			element.style.display = "initial";
+		});
 	}
 }
