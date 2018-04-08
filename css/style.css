@@ -9,8 +9,12 @@ main {
 	padding: 20px;
 }
 
-h1 {
+h2, h3 {
 	margin: 20px;
+}
+
+h2 {
+	font-size: 34px;
 }
 
 p {
@@ -80,6 +84,12 @@ button {
 #repo-stars .material-icons {
 	font-size: 11px;
 	margin-right: 5px;
+}
+
+#counter-container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
 }
 
 .btn-counter {

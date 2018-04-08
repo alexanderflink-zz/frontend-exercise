@@ -20,14 +20,16 @@
 	<body onload="main()">
 		<div id="overlay"></div>
 		<main>
-			<h1>Repository information</h1>
+			<h2>Repository information</h2>
 
-			<button id="btn-decrement" class="btn-counter white" type="button" name="decrement"><span class="material-icons">remove</span> DECREMENT</button>
-			<h2 id="counter">Counter: 0</h2>
-			<button id="btn-increment" class="btn-counter hotpink" type="button" name="increment"><span class="material-icons">add</span> INCREMENT</button>
+			<section id="counter-container">
+				<button id="btn-decrement" class="btn-counter white" type="button" name="decrement"><span class="material-icons">remove</span> DECREMENT</button>
+				<h2 id="counter">Counter: 0</h2>
+				<button id="btn-increment" class="btn-counter hotpink" type="button" name="increment"><span class="material-icons">add</span> INCREMENT</button>
+			</section>
 
 			<section id="repo-information">
-				<h1 id="repo-name"></h1>
+				<h2 id="repo-name"></h2>
 				<p id="repo-description"></p>
 				<a id="btn-open-login" href="#"><p>log in</p></a>
 				<p id="repo-stars"> </p>
